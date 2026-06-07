@@ -7,4 +7,4 @@ Ezequiel de Souza Luz - 1012515864 \
 Haniel Silva Santos - 1012512954 \
 Breno Farias Prado - 1012515561 \
 Lucas Souza Rodrigues - 1012516992 \
-Maria Inês Borges da Costa - 1012422371 \
+Maria Inês Borges da Costa - 1012422371 
