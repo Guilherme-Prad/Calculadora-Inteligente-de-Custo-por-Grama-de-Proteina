@@ -8,3 +8,5 @@ Haniel Silva Santos - 1012512954 \
 Breno Farias Prado - 1012515561 \
 Lucas Souza Rodrigues - 1012516992 \
 Maria Inês Borges da Costa - 1012422371 
+# Requerimentos 
+customtkinter>=5.2.0
