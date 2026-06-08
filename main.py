@@ -11,7 +11,7 @@ Objetivo:
     de proteína, aplicando funções matemáticas, lógica booleana e estruturas
     de dados nativas do Python.
 
-Autores: [Seu Nome]
+
 Data: 2025
 ==================================================
 """
