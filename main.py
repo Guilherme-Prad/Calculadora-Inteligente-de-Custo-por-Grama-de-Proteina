@@ -75,7 +75,7 @@ class JanelaManual(ctk.CTkToplevel):
         self.configure(fg_color=cores["preto"])
 
         ctk.CTkLabel(self, text="📖 Manual de Uso", font=ctk.CTkFont(size=18, weight="bold"),
-                     text_color=cores["verde_claro"], fg_color=cores["verde_escuro"],
+                     text_color=cores["branco"], fg_color=cores["verde_escuro"],
                      corner_radius=10, height=48).pack(fill="x", padx=16, pady=(16,8))
 
         texto = ctk.CTkTextbox(self, fg_color=cores["bg_painel"], text_color=cores.get("branco"), font=ctk.CTkFont(size=12))
