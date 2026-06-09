@@ -15,12 +15,11 @@ Componentes:
 import customtkinter as ctk
 from math_engine import formatar_moeda, formatar_grama, calcular_economia_percentual
 import tkinter as tk
+import tkinter.font as tkfont
 from tkinter import ttk
 
 
-# ==============================================================================
 # FORMULÁRIO DE ENTRADA
-# ==============================================================================
 class FormularioEntrada(ctk.CTkFrame):
     """
     Formulário com os campos necessários para cadastrar um alimento.
@@ -48,7 +47,7 @@ class FormularioEntrada(ctk.CTkFrame):
             self,
             text="➕  Cadastrar Alimento",
             font=ctk.CTkFont(size=14, weight="bold"),
-            text_color=self.cores["verde_claro"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         ).grid(row=0, column=0, columnspan=2, sticky="w", pady=(0, 12))
 
@@ -68,7 +67,7 @@ class FormularioEntrada(ctk.CTkFrame):
                 self,
                 text=label,
                 font=ctk.CTkFont(size=11, weight="bold"),
-                text_color=self.cores["verde_palido"],
+                text_color=self.cores["branco"],
                 fg_color="transparent",
             ).grid(row=linha, column=0, sticky="w", pady=(6, 0))
 
@@ -77,9 +76,9 @@ class FormularioEntrada(ctk.CTkFrame):
                 self,
                 placeholder_text=placeholder,
                 height=36,
-                fg_color=self.cores["preto_suave"],
+                fg_color=self.cores["branco"],
                 border_color=self.cores["cinza_suave"],
-                text_color=self.cores["branco"],
+                text_color=self.cores["preto"],
                 placeholder_text_color=self.cores["cinza_suave"],
                 font=ctk.CTkFont(size=12),
                 corner_radius=8,
@@ -98,24 +97,10 @@ class FormularioEntrada(ctk.CTkFrame):
                 ).grid(row=linha + 10, column=0, sticky="w")  # offset para não colidir
 
         # Ajustar linhas das dicas manualmente (reorganizar grid)
-        # Re-grid com espaçamento correto usando frame interno por campo
         for widget in self.winfo_children():
             widget.grid_remove()
 
         self._grid_campos_com_dicas()
-
-        # Botão Adicionar
-        ctk.CTkButton(
-            self,
-            text="➕  Adicionar Alimento",
-            height=42,
-            fg_color=self.cores["verde_medio"],
-            hover_color=self.cores["verde_claro"],
-            text_color=self.cores["preto_suave"],
-            font=ctk.CTkFont(size=13, weight="bold"),
-            corner_radius=10,
-            command=self._on_adicionar,
-        ).grid(row=99, column=0, columnspan=2, sticky="ew", pady=(16, 0))
 
     def _grid_campos_com_dicas(self):
         """Reconstrói o grid dos campos de forma organizada."""
@@ -126,7 +111,7 @@ class FormularioEntrada(ctk.CTkFrame):
             self,
             text="➕  Cadastrar Alimento",
             font=ctk.CTkFont(size=14, weight="bold"),
-            text_color=self.cores["verde_claro"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         ).grid(row=0, column=0, sticky="w", pady=(0, 8))
 
@@ -145,7 +130,7 @@ class FormularioEntrada(ctk.CTkFrame):
                 self,
                 text=label_txt,
                 font=ctk.CTkFont(size=11, weight="bold"),
-                text_color=self.cores["verde_palido"],
+                text_color=self.cores["branco"],
                 fg_color="transparent",
             ).grid(row=row_base, column=0, sticky="w", pady=(8, 0))
 
@@ -153,10 +138,10 @@ class FormularioEntrada(ctk.CTkFrame):
                 self,
                 placeholder_text=placeholder,
                 height=38,
-                fg_color=self.cores["preto_suave"],
+                fg_color=self.cores["branco"],
                 border_color=self.cores["cinza_suave"],
                 border_width=1,
-                text_color=self.cores["branco"],
+                text_color=self.cores["preto"],
                 placeholder_text_color=self.cores["cinza_suave"],
                 font=ctk.CTkFont(size=12),
                 corner_radius=8,
@@ -169,9 +154,9 @@ class FormularioEntrada(ctk.CTkFrame):
             self,
             text="➕  Adicionar Alimento",
             height=44,
-            fg_color=self.cores["verde_medio"],
-            hover_color=self.cores["verde_claro"],
-            text_color=self.cores["preto_suave"],
+            fg_color=self.cores["verde_escuro"],
+            hover_color=self.cores["verde_medio"],
+            text_color=self.cores["branco"],
             font=ctk.CTkFont(size=13, weight="bold"),
             corner_radius=10,
             command=self._on_adicionar,
@@ -196,9 +181,7 @@ class FormularioEntrada(ctk.CTkFrame):
         self.entry_nome.focus()
 
 
-# ==============================================================================
 # TABELA DE ALIMENTOS
-# ==============================================================================
 class TabelaAlimentos(ctk.CTkFrame):
     """
     Tabela visual para exibição dos alimentos cadastrados.
@@ -231,16 +214,16 @@ class TabelaAlimentos(ctk.CTkFrame):
         # Título
         ctk.CTkLabel(
             self,
-            text="📋  Alimentos Cadastrados",
+            text=">  Alimentos Cadastrados",
             font=ctk.CTkFont(size=13, weight="bold"),
-            text_color=self.cores["verde_claro"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         ).grid(row=0, column=0, sticky="w", pady=(0, 8))
 
         # Frame para a tabela com scrollbar
         frame_tabela = ctk.CTkFrame(
             self,
-            fg_color=self.cores["preto_suave"],
+            fg_color=self.cores["branco"],
             corner_radius=10,
         )
         frame_tabela.grid(row=1, column=0, sticky="nsew")
@@ -252,29 +235,29 @@ class TabelaAlimentos(ctk.CTkFrame):
         style.theme_use("default")
         style.configure(
             "ProteinCost.Treeview",
-            background="#1B4332",
-            fieldbackground="#1B4332",
-            foreground="#D8F3DC",
+            background=self.cores.get("branco", "#FFFFFF"),
+            fieldbackground=self.cores.get("branco", "#FFFFFF"),
+            foreground=self.cores.get("preto", "#000000"),
             rowheight=30,
             font=("Helvetica", 11),
             borderwidth=0,
         )
         style.configure(
             "ProteinCost.Treeview.Heading",
-            background="#2D6A4F",
-            foreground="#95D5B2",
+            background=self.cores.get("verde_escuro", "#0E9422"),
+            foreground=self.cores.get("branco", "#FFFFFF"),
             font=("Helvetica", 11, "bold"),
             relief="flat",
             padding=6,
         )
         style.map(
             "ProteinCost.Treeview",
-            background=[("selected", "#40916C")],
-            foreground=[("selected", "#FFFFFF")],
+            background=[("selected", self.cores.get("verde_medio", "#4CAF50"))],
+            foreground=[("selected", self.cores.get("branco", "#FFFFFF"))],
         )
         style.map(
             "ProteinCost.Treeview.Heading",
-            background=[("active", "#40916C")],
+            background=[("active", self.cores.get("verde_medio", "#4CAF50"))],
         )
 
         # Cria o Treeview
@@ -293,17 +276,30 @@ class TabelaAlimentos(ctk.CTkFrame):
             self.tree.column(col_id, width=col_width, anchor="center", minwidth=60)
 
         # Tag para destaque do melhor alimento
-        self.tree.tag_configure("melhor", background="#40916C", foreground="#FFD60A")
-        self.tree.tag_configure("normal", background="#1B4332", foreground="#D8F3DC")
+        self.tree.tag_configure(
+            "melhor",
+            background=self.cores.get("verde_claro", "#76BA4E"),
+            foreground=self.cores.get("branco", "#FFFFFF"),
+        )
+        self.tree.tag_configure(
+            "normal",
+            background=self.cores.get("fundo_claro", self.cores.get("branco")),
+            foreground=self.cores.get("preto"),
+        )
 
         # Scrollbar vertical
-        scrollbar = ttk.Scrollbar(
-            frame_tabela, orient="vertical", command=self.tree.yview
+        scrollbar = ctk.CTkScrollbar(
+            frame_tabela,
+            orientation="vertical", 
+            command=self.tree.yview,
+            button_color=self.cores["verde_escuro"],
+            button_hover_color=self.cores["verde_medio"],
+            corner_radius=99
         )
         self.tree.configure(yscrollcommand=scrollbar.set)
 
-        self.tree.grid(row=0, column=0, sticky="nsew", padx=(4, 0), pady=4)
-        scrollbar.grid(row=0, column=1, sticky="ns", pady=4)
+        self.tree.grid(row=0, column=0, sticky="nsew", padx=(10, 0), pady=10)
+        scrollbar.grid(row=0, column=1, sticky="ns", padx=(4, 8), pady=10)
 
         # Evento de seleção
         self.tree.bind("<<TreeviewSelect>>", self._on_selecionar)
@@ -352,18 +348,20 @@ class TabelaAlimentos(ctk.CTkFrame):
         self._alimento_selecionado = self.obter_selecionado()
 
 
-# ==============================================================================
 # PAINEL DE RANKING
-# ==============================================================================
 class PainelRanking(ctk.CTkFrame):
     """
     Exibe o ranking dos alimentos ordenados do melhor ao pior custo por proteína.
     """
 
-    MEDALHAS = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"]
+    MEDALHAS = [
+        ("🥇", "military_tech"),
+        ("🥈", "military_tech"),
+        ("🥉", "military_tech"),
+    ]
 
     def __init__(self, parent, cores: dict):
-        super().__init__(parent, fg_color=cores["preto_suave"], corner_radius=12)
+        super().__init__(parent, fg_color=cores["branco"], corner_radius=12)
         self.cores = cores
         self._construir_painel()
 
@@ -379,9 +377,9 @@ class PainelRanking(ctk.CTkFrame):
 
         ctk.CTkLabel(
             frame_header,
-            text="🏆  Ranking de Custo-Benefício",
+            text="•  Ranking de Custo-Benefício",
             font=ctk.CTkFont(size=12, weight="bold"),
-            text_color=self.cores["verde_claro"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         ).grid(row=0, column=0, padx=12, pady=6, sticky="w")
 
@@ -389,7 +387,7 @@ class PainelRanking(ctk.CTkFrame):
             frame_header,
             text="",
             font=ctk.CTkFont(size=11),
-            text_color=self.cores["texto_claro"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         )
         self.label_media.grid(row=0, column=1, padx=12, pady=6, sticky="e")
@@ -427,7 +425,8 @@ class PainelRanking(ctk.CTkFrame):
         # Atualiza a média
         from math_engine import formatar_moeda
         self.label_media.configure(
-            text=f"Média: {formatar_moeda(media)}/g"
+            text=f"Média: {formatar_moeda(media)}/g",
+            text_color=self.cores["branco"]
         )
 
         # Calcula economia percentual em relação ao mais caro
@@ -439,16 +438,10 @@ class PainelRanking(ctk.CTkFrame):
             self._criar_linha_ranking(pos, alimento, custo_pior)
 
     def _criar_linha_ranking(self, posicao: int, alimento: dict, custo_pior: float):
-        """Cria uma linha visual para um alimento no ranking."""
         from math_engine import formatar_moeda, calcular_economia_percentual
 
-        # Cor de fundo: destaque especial para o 1º lugar
-        if posicao == 0:
-            bg_color = "#1F4D38"
-            borda = self.cores["verde_claro"]
-        else:
-            bg_color = self.cores["fundo_card"]
-            borda = self.cores["cinza_suave"]
+        bg_color = self.cores["verde_medio"]
+        borda = self.cores["branco"]
 
         frame = ctk.CTkFrame(
             self.scroll_ranking,
@@ -463,12 +456,34 @@ class PainelRanking(ctk.CTkFrame):
         )
         frame.grid_columnconfigure(2, weight=1)
 
-        # Medalha / posição
-        medalha = self.MEDALHAS[posicao] if posicao < len(self.MEDALHAS) else f"#{posicao+1}"
+        # Posição
+        if posicao < len(self.MEDALHAS):
+            emoji_fallback, icon_name = self.MEDALHAS[posicao]
+        else:
+            emoji_fallback, icon_name = (f"{posicao+1}", None)
+
+        try:
+            families = tkfont.families()
+        except Exception:
+            families = []
+
+        use_material = "Material Symbols Outlined" in families and icon_name is not None
+
+        if use_material:
+            medal_text = icon_name
+            medal_font = ctk.CTkFont(family="Material Symbols Outlined", size=16)
+        else:
+            medal_text = emoji_fallback
+            medal_font = ctk.CTkFont(size=16)
+
+        medal_colors = {0: "#FFD700", 1: "#C0C0C0", 2: "#CD7F32"}
+        medal_color = medal_colors.get(posicao, self.cores.get("texto_claro", self.cores.get("branco", "#FFFFFF")))
+
         ctk.CTkLabel(
             frame,
-            text=medalha,
-            font=ctk.CTkFont(size=16),
+            text=medal_text,
+            font=medal_font,
+            text_color=medal_color,
             fg_color="transparent",
             width=36,
         ).grid(row=0, column=0, padx=(8, 4), pady=6)
@@ -478,7 +493,7 @@ class PainelRanking(ctk.CTkFrame):
             frame,
             text=alimento["nome"],
             font=ctk.CTkFont(size=12, weight="bold"),
-            text_color=self.cores["verde_claro"] if posicao == 0 else self.cores["texto_claro"],
+            text_color=self.cores.get("branco", "#FFFFFF"),
             fg_color="transparent",
         ).grid(row=0, column=1, sticky="w", padx=4)
 
@@ -487,7 +502,7 @@ class PainelRanking(ctk.CTkFrame):
             frame,
             text=f"{formatar_moeda(alimento['custo_por_grama'])}/g",
             font=ctk.CTkFont(size=12, weight="bold"),
-            text_color=self.cores["amarelo"] if posicao == 0 else self.cores["verde_palido"],
+            text_color=self.cores["branco"],
             fg_color="transparent",
         ).grid(row=0, column=2, sticky="e", padx=8)
 
@@ -500,8 +515,8 @@ class PainelRanking(ctk.CTkFrame):
                 ctk.CTkLabel(
                     frame,
                     text=f"💚 {economia:.1f}% mais barato",
-                    font=ctk.CTkFont(size=10),
-                    text_color=self.cores["verde_claro"],
+                    font=ctk.CTkFont(size=12),
+                    text_color=self.cores["branco"],
                     fg_color="transparent",
                 ).grid(row=0, column=3, padx=(4, 12))
 
@@ -521,9 +536,7 @@ class PainelRanking(ctk.CTkFrame):
         self.label_media.configure(text="")
 
 
-# ==============================================================================
 # BARRA DE STATUS
-# ==============================================================================
 class BarraStatus(ctk.CTkFrame):
     """
     Barra inferior de mensagens de feedback para o usuário.
@@ -533,7 +546,7 @@ class BarraStatus(ctk.CTkFrame):
     def __init__(self, parent, cores: dict):
         super().__init__(
             parent,
-            fg_color=cores["preto_suave"],
+            fg_color=cores["branco"],
             corner_radius=8,
             height=36,
         )
@@ -544,18 +557,18 @@ class BarraStatus(ctk.CTkFrame):
         self.label_msg = ctk.CTkLabel(
             self,
             text="ℹ  Bem-vindo ao ProteinCost! Cadastre alimentos e calcule o ranking.",
-            font=ctk.CTkFont(size=11),
-            text_color=cores["texto_claro"],
+            font=ctk.CTkFont(size=12),
+            text_color=cores["preto"],
             fg_color="transparent",
             anchor="w",
         )
-        self.label_msg.grid(row=0, column=0, sticky="ew", padx=12)
+        self.label_msg.grid(row=1, column=0, sticky="ew", padx=12, pady=6)
 
     def sucesso(self, mensagem: str):
         """Exibe uma mensagem de sucesso (verde)."""
         self.label_msg.configure(
             text=mensagem,
-            text_color=self.cores["verde_claro"],
+            text_color=self.cores["branco"],
         )
 
     def erro(self, mensagem: str):
@@ -566,8 +579,8 @@ class BarraStatus(ctk.CTkFrame):
         )
 
     def aviso(self, mensagem: str):
-        """Exibe uma mensagem de aviso (amarelo)."""
+        """Exibe uma mensagem de aviso (branco)."""
         self.label_msg.configure(
             text=mensagem,
-            text_color=self.cores["amarelo"],
+            text_color=self.cores["branco"],
         )
